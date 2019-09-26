@@ -38,7 +38,8 @@ int fibmemorisation(int n){
         f[n-1] = fibmemorisation(n-1);
     if(f[n-2]==-1)
         f[n-2] = fibmemorisation(n-2);
-        return f[n-1]+f[n-2];
+        f[n] = f[n-1]+f[n-2];
+        return f[n];
     }
 int main(){
     for(int i=0;i<10;i++)
@@ -46,8 +47,8 @@ int main(){
 
         f[i] = -1;
     }
-    cout<<fibiterative(3)<<endl;
-    cout<<fibsimplerecursion(3)<<endl;
-    cout<<fibmemorisation(3)<<endl;
+    cout<<fibiterative(5)<<endl;
+    cout<<fibsimplerecursion(5)<<endl;
+    cout<<fibmemorisation(5)<<endl;
     return 0;
 }
