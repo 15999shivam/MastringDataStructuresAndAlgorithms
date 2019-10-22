@@ -103,18 +103,64 @@ int LinearSearchImprovedFront(struct Array *arr, int key)
     return -1;
 }
 
+//binary  - iterative
+int BinarySearchIterative(struct Array arr, int key)
+{
+    int l = 0;
+    int h = arr.length;
+    while (l <= h)
+    {
+        int mid = (l + h) / 2;
+        if (arr.A[mid] == key)
+        {
+            return mid;
+        }
+        else if (arr.A[mid] > key)
+        {
+            h = mid - 1;
+        }
+        else
+        {
+            l = mid + 1;
+        }
+    }
+    return -1;
+}
+
+//binary search reccursive
+int BinarySearchRecursive(struct Array arr, int l, int h, int key)
+{
+    if (l <= h)
+    {
+        int mid = (l + h) / 2;
+        if (arr.A[mid] == key)
+            return mid;
+        else if (arr.A[mid] < key)
+            return BinarySearchRecursive(arr, mid + 1, h, key);
+        else
+            return BinarySearchRecursive(arr, l, mid - 1, key);
+    }
+    else
+    {
+        return -1;
+    }
+}
+
 int main()
 {
 
     struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
-    Append(&arr, 10);
-    Insert(&arr, 0, 120);
-    cout << Delete(&arr, 1) << endl;
-    cout << LinearSearch(arr, 2) << endl;
-    display(arr);
-    cout << "element: " << arr.A[LinearSearchImprovedTranposition(&arr, 6)] << endl;
-    display(arr);
-    cout << LinearSearchImprovedFront(&arr, 6) << endl;
-    display(arr);
+    // Append(&arr, 10);
+    // Insert(&arr, 0, 120);
+    // cout << Delete(&arr, 1) << endl;
+    // cout << LinearSearch(arr, 2) << endl;
+    // display(arr);
+    // cout << "element: " << arr.A[LinearSearchImprovedTranposition(&arr, 6)] << endl;
+    // display(arr);
+    // cout << LinearSearchImprovedFront(&arr, 6) << endl;
+    // display(arr);
+    cout << BinarySearchIterative(arr, 6) << endl;
+
+    cout << BinarySearchRecursive(arr, 0, arr.length, 6);
     return 0;
 }
