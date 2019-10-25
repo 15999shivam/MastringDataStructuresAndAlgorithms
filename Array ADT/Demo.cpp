@@ -272,10 +272,95 @@ void LeftRotate(struct Array *arr)
     arr->A[arr->length - 1] = temp;
 }
 
+void InsertInSortedArray(struct Array *arr, int x)
+{
+    if (arr->length < arr->size)
+    {
+        int i = arr->length - 1;
+        while (arr->A[i] > x)
+        {
+            arr->A[i + 1] = arr->A[i];
+            i--;
+        }
+        if (i < 0)
+            arr->A[0] = x;
+        else
+            arr->A[i + 1] = x;
+        arr->length++;
+    }
+}
+
+int IsSorted(struct Array arr)
+{
+    for (int i = 0; i < arr.length - 1; i++)
+    {
+        if (arr.A[i] > arr.A[i + 1])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void NegativeOnLeftMaintainOrder(struct Array *arr)
+{
+    for (int i = 0; i < arr->length; i++)
+    {
+        if (arr->A[i] > 0)
+        {
+            int index = -1;
+            for (int j = i + 1; j < arr->length; j++)
+            {
+                if (arr->A[j] < 0)
+                {
+                    index = j;
+                    break;
+                }
+            }
+            if (index != -1)
+            {
+                int temp = arr->A[index];
+                for (int m = index; m > i; m--)
+                {
+                    arr->A[m] = arr->A[m - 1];
+                }
+                arr->A[i] = temp;
+            }
+            else
+                break;
+        }
+    }
+}
+
+void NegativeOnLeftNotMaintainOrder(struct Array *arr)
+{
+    for (int i = 0; i < arr->length; i++)
+    {
+        if (arr->A[i] > 0)
+        {
+            int index = -1;
+            for (int j = i + 1; j < arr->length; j++)
+            {
+                if (arr->A[j] < 0)
+                {
+                    index = j;
+                    break;
+                }
+            }
+            if (index != -1)
+            {
+                swap(&arr->A[i], &arr->A[index]);
+            }
+            else
+                break;
+        }
+    }
+}
+
 int main()
 {
 
-    struct Array arr = {{2, 3, 14, 25, 6}, 10, 5};
+    struct Array arr = {{-6, 3, -8, 10, 5, -7, -9, 12, -4, 2}, 10, 10};
     // Append(&arr, 10);
     // Insert(&arr, 0, 120);
     // cout << Delete(&arr, 1) << endl;
@@ -308,10 +393,17 @@ int main()
     // RightShift(&arr);
     // display(arr);
 
-    display(arr);
-    // LeftRotate(&arr);
-    LeftShift(&arr);
-    display(arr);
+    // display(arr);
+    // // LeftRotate(&arr);
+    // LeftShift(&arr);
+    // display(arr);
 
+    // cout << IsSorted(arr);
+    // InsertInSortedArray(&arr, 0);
+    // InsertInSortedArray(&arr, 1);
+    display(arr);
+    NegativeOnLeftMaintainOrder(&arr);
+    // NegativeOnLeftNotMaintainOrder(&arr);
+    display(arr);
     return 0;
 }
