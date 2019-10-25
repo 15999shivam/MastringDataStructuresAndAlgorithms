@@ -146,10 +146,78 @@ int BinarySearchRecursive(struct Array arr, int l, int h, int key)
     }
 }
 
+int Get(struct Array arr, int index)
+{
+    if (index >= 0 && index < arr.length)
+    {
+        return arr.A[index];
+    }
+    return -1;
+}
+
+void Set(struct Array *arr, int index, int x)
+{
+    if (index >= 0 && index <= arr->length)
+    {
+        arr->A[index] = x;
+    }
+}
+
+int Max(struct Array arr)
+{
+    int max = arr.A[0];
+    for (int i = 1; i < arr.length; i++)
+    {
+        if (arr.A[i] > max)
+        {
+            max = arr.A[i];
+        }
+    }
+    return max;
+}
+
+int Min(struct Array arr)
+{
+    int min = arr.A[0];
+    for (int i = 1; i < arr.length; i++)
+    {
+        if (arr.A[i] < min)
+        {
+            min = arr.A[i];
+        }
+    }
+    return min;
+}
+
+int SumIterative(struct Array arr)
+{
+    int sum = 0;
+    for (int i = 0; i < arr.length; i++)
+    {
+        sum += arr.A[i];
+    }
+    return sum;
+}
+
+int SumRecursive(struct Array arr, int n)
+{
+    if (n == 0)
+    {
+        return 0;
+    }
+    return SumRecursive(arr, n - 1) + arr.A[n];
+}
+
+float Avg(struct Array arr)
+{
+
+    return (float)SumIterative(arr) * 1.0 / arr.length;
+}
+
 int main()
 {
 
-    struct Array arr = {{2, 3, 4, 5, 6}, 10, 5};
+    struct Array arr = {{2, 3, 14, 25, 6}, 10, 5};
     // Append(&arr, 10);
     // Insert(&arr, 0, 120);
     // cout << Delete(&arr, 1) << endl;
@@ -159,8 +227,16 @@ int main()
     // display(arr);
     // cout << LinearSearchImprovedFront(&arr, 6) << endl;
     // display(arr);
-    cout << BinarySearchIterative(arr, 6) << endl;
+    // cout << BinarySearchIterative(arr, 6) << endl;
 
-    cout << BinarySearchRecursive(arr, 0, arr.length, 6);
+    // cout << BinarySearchRecursive(arr, 0, arr.length, 6);
+
+    // cout << Get(arr, 9);
+    // Set(&arr, 0, 15);
+    // display(arr);
+    // cout << Max(arr) << endl;
+    // cout << Min(arr);
+    // cout << SumRecursive(arr, arr.length - 1);
+    cout << Avg(arr);
     return 0;
 }
