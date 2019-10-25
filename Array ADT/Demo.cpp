@@ -214,6 +214,64 @@ float Avg(struct Array arr)
     return (float)SumIterative(arr) * 1.0 / arr.length;
 }
 
+void ReverseAuxilary(struct Array *arr)
+{
+    int *B;
+    B = new int[arr->length];
+    for (int i = arr->length - 1, j = 0; i >= 0; i--, j++)
+    {
+        B[j] = arr->A[i];
+    }
+    for (int i = 0; i < arr->length; i++)
+    {
+        arr->A[i] = B[i];
+    }
+}
+
+void Reverse(struct Array *arr)
+{
+    for (int i = 0, j = arr->length - 1; i < j; i++, j--)
+    {
+        swap(&arr->A[i], &arr->A[j]);
+    }
+}
+
+void RightShift(struct Array *arr)
+{
+    for (int i = arr->length - 1; i > 0; i--)
+    {
+        arr->A[i] = arr->A[i - 1];
+    }
+    arr->A[0] = 0;
+}
+void RightRotate(struct Array *arr)
+{
+    int temp = arr->A[arr->length - 1];
+    for (int i = arr->length - 1; i > 0; i--)
+    {
+        arr->A[i] = arr->A[i - 1];
+    }
+    arr->A[0] = temp;
+}
+
+void LeftShift(struct Array *arr)
+{
+    for (int i = 0; i < arr->length - 1; i++)
+    {
+        arr->A[i] = arr->A[i + 1];
+    }
+    arr->A[arr->length - 1] = 0;
+}
+void LeftRotate(struct Array *arr)
+{
+    int temp = arr->A[0];
+    for (int i = 0; i < arr->length - 1; i++)
+    {
+        arr->A[i] = arr->A[i + 1];
+    }
+    arr->A[arr->length - 1] = temp;
+}
+
 int main()
 {
 
@@ -227,6 +285,7 @@ int main()
     // display(arr);
     // cout << LinearSearchImprovedFront(&arr, 6) << endl;
     // display(arr);
+
     // cout << BinarySearchIterative(arr, 6) << endl;
 
     // cout << BinarySearchRecursive(arr, 0, arr.length, 6);
@@ -237,6 +296,22 @@ int main()
     // cout << Max(arr) << endl;
     // cout << Min(arr);
     // cout << SumRecursive(arr, arr.length - 1);
-    cout << Avg(arr);
+    // cout << Avg(arr);
+
+    // display(arr);
+    // ReverseAuxilary(&arr);
+    // Reverse(&arr);
+    // display(arr);
+
+    // display(arr);
+    // RightRotate(&arr);
+    // RightShift(&arr);
+    // display(arr);
+
+    display(arr);
+    // LeftRotate(&arr);
+    LeftShift(&arr);
+    display(arr);
+
     return 0;
 }
