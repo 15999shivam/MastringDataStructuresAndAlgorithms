@@ -401,6 +401,62 @@ struct Array *Merge(struct Array arr1, struct Array arr2)
     return arr3;
 }
 
+void AppendArray(struct Array *arr1, struct Array *arr2)
+{
+    if (arr1->size - arr1->length >= arr2->length)
+    {
+        for (int i = 0; i < arr2->length; i++)
+        {
+            arr1->A[arr1->length + i] = arr2->A[i];
+        }
+        arr1->length += arr2->length;
+    }
+}
+
+struct Array *Concat(struct Array arr1, struct Array arr2)
+{
+    struct Array *arr3 = new Array;
+    arr3->length = arr1.length + arr2.length;
+    arr3->size = arr1.size + arr2.size;
+
+    int i = 0;
+    for (i = 0; i < arr1.length; i++)
+    {
+        arr3->A[i] = arr1.A[i];
+    }
+    for (int j = 0; j < arr2.length; j++)
+    {
+        arr3->A[i + j] = arr2.A[j];
+    }
+    return arr3;
+}
+
+int Compare(struct Array a, struct Array b)
+{
+    if (a.length != b.length)
+    {
+        return 0;
+    }
+    for (int i = 0; i < a.length; i++)
+    {
+        if (a.A[i] != b.A[i])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void Copy(struct Array *a, struct Array b)
+{
+    a->length = b.length;
+    a->size = b.size;
+    for (int i = 0; i < a->length; i++)
+    {
+        a->A[i] = b.A[i];
+    }
+}
+
 int main()
 {
 
@@ -454,7 +510,15 @@ int main()
     struct Array arr1 = {{2, 6, 10, 15, 25}, 10, 5};
     struct Array arr2 = {{3, 4, 7, 18, 20}, 10, 5};
 
-    struct Array *arr3 = Merge(arr1, arr2);
-    display(*arr3);
+    // struct Array *arr3 = Concat(arr1, arr2);
+    // display(*arr3);
+
+    // AppendArray(&arr1, &arr2);
+    // display(arr1);
+
+    // cout << Compare(arr1, arr2);
+
+    Copy(&arr1, arr2);
+    display(arr1);
     return 0;
 }
