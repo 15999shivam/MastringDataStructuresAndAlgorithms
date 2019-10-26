@@ -357,6 +357,50 @@ void NegativeOnLeftNotMaintainOrder(struct Array *arr)
     }
 }
 
+void reArrangeArray(struct Array *arr)
+{
+    int i = 0, j = arr->length - 1;
+    // cout << i << " " << j << endl;
+    while (i < j)
+    {
+        while (arr->A[i] < 0)
+            i++;
+        while (arr->A[j] >= 0)
+            j--;
+        if (i < j)
+            swap(&arr->A[i], &arr->A[j]);
+        i++;
+    }
+}
+
+struct Array *Merge(struct Array arr1, struct Array arr2)
+{
+    int i = 0, j = 0, k = 0;
+    struct Array *arr3 = new struct Array;
+    while (i < arr1.length && j < arr2.length)
+    {
+        if (arr1.A[i] < arr2.A[j])
+        {
+            arr3->A[k++] = arr1.A[i++];
+        }
+        else
+        {
+            arr3->A[k++] = arr2.A[j++];
+        }
+    }
+    while (i < arr1.length)
+    {
+        arr3->A[k++] = arr1.A[i++];
+    }
+    while (j < arr2.length)
+    {
+        arr3->A[k++] = arr2.A[j++];
+    }
+    arr3->length = arr1.length + arr2.length;
+    arr3->size = 10;
+    return arr3;
+}
+
 int main()
 {
 
@@ -401,9 +445,16 @@ int main()
     // cout << IsSorted(arr);
     // InsertInSortedArray(&arr, 0);
     // InsertInSortedArray(&arr, 1);
-    display(arr);
-    NegativeOnLeftMaintainOrder(&arr);
+    // display(arr);
+    // reArrangeArray(&arr);
+    // NegativeOnLeftMaintainOrder(&arr);
     // NegativeOnLeftNotMaintainOrder(&arr);
-    display(arr);
+    // display(arr);
+
+    struct Array arr1 = {{2, 6, 10, 15, 25}, 10, 5};
+    struct Array arr2 = {{3, 4, 7, 18, 20}, 10, 5};
+
+    struct Array *arr3 = Merge(arr1, arr2);
+    display(*arr3);
     return 0;
 }
